@@ -1,7 +1,13 @@
 import React from 'react';
 
+import HeroBanner from './HeroBanner';
+
 const Home = () => {
-  return <div>Ariful islam</div>;
+  return (
+    <>
+      <HeroBanner />
+    </>
+  );
 };
 
 export default Home;

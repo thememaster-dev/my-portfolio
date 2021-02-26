@@ -11,8 +11,8 @@ const Home = lazy(() => import('../Home'));
 
 const useStyle = makeStyles((theme) => ({
   container: {
-    paddingTop: theme.spacing(1.5),
-    paddingBottom: theme.spacing(1.5),
+    // paddingTop: theme.spacing(1.5),
+    // paddingBottom: theme.spacing(1.5),
   },
 }));
 
@@ -21,7 +21,7 @@ const App = () => {
 
   return (
     <Container maxWidth='md' className={classes.container}>
-      <Grid container spacing={3}>
+      <Grid container>
         <Suspense fallback={<Fallback />}>
           <Switch>
             <Route exact path='/' component={Home} />
