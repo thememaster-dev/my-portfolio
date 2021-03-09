@@ -5,6 +5,8 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import App from 'src/views/App';
 import reportWebVitals from './reportWebVitals';
 
+import 'src/assets/scss/style.scss';
+
 ReactDOM.render(
   <Router>
     <App />

@@ -1,14 +1,10 @@
-import React from 'react'
-import Layout from 'antd/lib/layout'
+import React from 'react';
+import Layout from 'antd/lib/layout';
 
-const {Header} = Layout
+const { Header } = Layout;
 
 const HeaderTop = () => {
-  return (
-    <Header>
+  return <Header className='header'></Header>;
+};
 
-    </Header>
-  )
-}
-
-export default HeaderTop
+export default HeaderTop;
