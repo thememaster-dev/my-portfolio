@@ -1,0 +1,18 @@
+.auth-info {
+  width: 240px;
+  padding: 10px 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  border-radius: 15px;
+  .user-avatar {
+    margin-bottom: 10px;
+  }
+  button {
+    margin-top: 10px;
+  }
+}
+.ant-popover-inner {
+  border-radius: 8px;
+}

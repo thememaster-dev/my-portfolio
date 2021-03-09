@@ -6,6 +6,7 @@ import Button from 'antd/lib/button';
 import 'antd/lib/button/style/css';
 
 import { toggleCollapsed } from 'src/state/ducks/ui';
+import AuthInfo from 'src/components/AuthInfo';
 
 const { Header } = Layout;
 
@@ -21,6 +22,9 @@ const HeaderTop = () => {
       >
         <FeatherIcon icon={collapsed ? 'align-left' : 'align-right'} />
       </Button>
+      <div className='header-info'>
+        <AuthInfo />
+      </div>
     </Header>
   );
 };
