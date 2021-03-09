@@ -9,14 +9,21 @@ import Col from 'antd/lib/col';
 import 'antd/lib/col/style/css';
 import Pagination from 'antd/lib/pagination';
 import 'antd/lib/pagination/style/css';
+import { useHistory } from 'react-router-dom';
 
 import Project from 'src/components/Project';
 
 const ProjectList = () => {
+  const history = useHistory();
+
   return (
     <Card
       title='My Projects'
-      extra={<Button type='primary'>Create a new project</Button>}
+      extra={
+        <Button type='primary' onClick={() => history.push('/projects/create')}>
+          Create a new project
+        </Button>
+      }
     >
       <Row gutter={[24, 24]} style={{ justifyContent: 'center' }}>
         <Col span={6}>
