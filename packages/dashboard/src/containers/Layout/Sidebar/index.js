@@ -1,14 +1,13 @@
-import React from 'react'
-import Layout from 'antd/lib/layout'
+import React from 'react';
+import Layout from 'antd/lib/layout';
+import { useSelector } from 'react-redux';
 
-const { Sider } = Layout
+const { Sider } = Layout;
 
 const Sidebar = () => {
-  return (
-    <Sider>
+  const collapsed = useSelector((state) => state.layout.collapsed);
 
-    </Sider>
-  )
-}
+  return <Sider trigger={null} collapsible collapsed={collapsed}></Sider>;
+};
 
-export default Sidebar
+export default Sidebar;
