@@ -1,0 +1,12 @@
+.btn-simple {
+  border: none;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  &:hover,
+  &:focus {
+    color: rgba(0, 0, 0, 0.85);
+    box-shadow: none;
+  }
+}

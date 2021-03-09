@@ -15,7 +15,10 @@ const HeaderTop = () => {
   const dispatch = useDispatch();
   return (
     <Header className='header'>
-      <Button type='link' onClick={() => dispatch(toggleCollapsed())}>
+      <Button
+        className='btn-simple'
+        onClick={() => dispatch(toggleCollapsed())}
+      >
         <FeatherIcon icon={collapsed ? 'align-left' : 'align-right'} />
       </Button>
     </Header>

@@ -15,7 +15,7 @@ const LayoutAdmin = (props) => {
       <Sidebar />
       <Layout style={{ minHeight: '100vh' }}>
         <Header />
-        <Content>{children}</Content>
+        <Content className='main-wrapper'>{children}</Content>
       </Layout>
     </Layout>
   );
