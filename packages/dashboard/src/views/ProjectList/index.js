@@ -28,7 +28,8 @@ const ProjectList = () => {
         <Col span={24}>
           <Pagination
             style={{ textAlign: 'center', marginTop: 20 }}
-            defaultCurrent={6}
+            defaultCurrent={1}
+            pageSize={5}
             showSizeChanger={false}
             total={500}
           />
