@@ -3,6 +3,8 @@ import Layout from 'antd/lib/layout';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
+import Navigation from './Navigation';
+
 const { Sider } = Layout;
 
 const Sidebar = () => {
@@ -13,6 +15,7 @@ const Sidebar = () => {
       <Link className='logo' to='/'>
         {collapsed ? 'P' : 'Portfolio'}
       </Link>
+      <Navigation />
     </Sider>
   );
 };
