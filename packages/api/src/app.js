@@ -10,6 +10,7 @@ const app = express();
 
 // Import Routes
 const authRoutes = require('./routes/auth');
+const projectRoutes = require('./routes/project');
 
 // MongoDb Database connect
 mongoose
@@ -41,6 +42,7 @@ require('./utils/passport');
 
 // Routes
 app.use('/auth', authRoutes);
+app.use('/projects', projectRoutes);
 
 function ignoreFavicon(req, res, next) {
   if (req.originalUrl.includes('favicon.ico')) {
