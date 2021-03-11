@@ -7,8 +7,15 @@ import Button from 'antd/lib/button';
 import 'antd/lib/button/style/css';
 import UserOutlined from '@ant-design/icons/UserOutlined';
 import LogoutOutlined from '@ant-design/icons/LogoutOutlined';
+import { useDispatch, useSelector } from 'react-redux';
+
+import { logOutUser } from 'src/state/ducks/authentication';
 
 const AuthInfo = () => {
+  const user = useSelector((state) => state.auth.user);
+
+  const dispatch = useDispatch();
+
   const content = (
     <div className='auth-info'>
       <Avatar
@@ -17,8 +24,14 @@ const AuthInfo = () => {
         icon={<UserOutlined />}
         src=''
       />
-      <h2>Ariful islam</h2>
-      <Button size='small' type='primary' danger icon={<LogoutOutlined />}>
+      <h2>{user?.name}</h2>
+      <Button
+        onClick={() => dispatch(logOutUser())}
+        size='small'
+        type='primary'
+        danger
+        icon={<LogoutOutlined />}
+      >
         Log out
       </Button>
     </div>
