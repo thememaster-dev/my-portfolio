@@ -4,8 +4,22 @@ const morgan = require('morgan');
 const path = require('path');
 const cors = require('cors');
 const bodyParser = require('body-parser');
+const mongoose = require('mongoose');
 
 const app = express();
+
+// MongoDb Database connect
+mongoose
+  .connect(process.env.DATABASE_URL, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
+  .then(() => {
+    console.log('Connected to mongodb');
+  })
+  .catch((error) => {
+    console.log('Connection to mongodb was not successful!', error);
+  });
 
 // parse application/x-www-form-urlencoded
 // parse application/json
