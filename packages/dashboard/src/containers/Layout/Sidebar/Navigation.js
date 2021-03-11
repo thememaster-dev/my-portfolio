@@ -1,7 +1,7 @@
 import React from 'react';
 import Menu from 'antd/lib/menu';
 import 'antd/lib/menu/style/css';
-import NavLink from 'react-router-dom/NavLink';
+import { NavLink } from 'react-router-dom';
 import UserOutlined from '@ant-design/icons/UserOutlined';
 import ProjectOutlined from '@ant-design/icons/ProjectOutlined';
 

@@ -11,8 +11,8 @@ import Button from 'antd/lib/button';
 import 'antd/lib/button/style/css';
 import Checkbox from 'antd/lib/checkbox';
 import 'antd/lib/checkbox/style/css';
-import { useDispatch } from 'react-redux';
-import { useHistory } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 
 import { authLogin } from 'src/api';
 import { setCurrentUser } from 'src/state/ducks/authentication';
@@ -28,23 +28,32 @@ const tailLayout = {
 const Signin = () => {
   const [loading, setLoading] = useState(false);
   const [errors, setErrors] = useState(null);
+
+  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
+
   const dispatch = useDispatch();
-  const history = useHistory();
+
   const [form] = Form.useForm();
 
   const onSubmit = async (event) => {
     try {
       setLoading(true);
+
       const { data } = await authLogin(event);
+
       dispatch(setCurrentUser({ token: data?.token }));
+
       setLoading(false);
       setErrors({});
-      history.push('/');
     } catch (error) {
       setErrors(error?.response?.data?.errors);
       setLoading(false);
     }
   };
+
+  if (isAuthenticated) {
+    return <Redirect to='/' />;
+  }
 
   return (
     <Row>
