@@ -76,3 +76,11 @@ exports.login = async (req, res) => {
 
   return res.status(200).json({ success: true, token: `Bearer ${token}` });
 };
+
+exports.me = async (req, res) =>
+  res.status(200).json({
+    id: req.user.id,
+    name: req.user.name,
+    email: req.user.email,
+    role: req.user.role,
+  });

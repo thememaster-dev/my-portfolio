@@ -36,6 +36,9 @@ app.use(cors());
 // Logger
 app.use(morgan('dev'));
 
+// Passport config
+require('./utils/passport');
+
 // Routes
 app.use('/auth', authRoutes);
 
