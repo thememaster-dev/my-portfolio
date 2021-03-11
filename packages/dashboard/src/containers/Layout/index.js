@@ -14,11 +14,11 @@ const LayoutAdmin = (props) => {
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
 
   return (
-    <Layout>
+    <Layout style={{ minHeight: '100vh' }}>
       {isAuthenticated ? (
         <>
           <Sidebar />
-          <Layout style={{ minHeight: '100vh' }}>
+          <Layout>
             <Header />
             <Content className='main-wrapper'>{children}</Content>
           </Layout>
