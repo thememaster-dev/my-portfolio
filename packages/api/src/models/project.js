@@ -15,6 +15,10 @@ const ProjectSchema = new Schema(
     },
     skills: [String],
     slug: String,
+    projectUrl: {
+      type: String,
+      default: null,
+    },
     published: {
       type: Boolean,
       default: false,

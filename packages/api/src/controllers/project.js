@@ -104,6 +104,9 @@ exports.createProject = async (req, res) => {
     ...(req.body?.skills && {
       skills: [...req.body.skills],
     }),
+    ...(req.body?.projectUrl && {
+      projectUrl: req.body.projectUrl,
+    }),
   });
 
   await newProject.save();
