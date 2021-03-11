@@ -15,8 +15,8 @@ exports.createProject = async (req, res) => {
   const newProject = new Project({
     title: req.body.title,
     body: req.body.body,
-    ...(req.body?.language && {
-      language: [...req.body?.language],
+    ...(req.body?.skills && {
+      skills: [...req.body.skills],
     }),
   });
 

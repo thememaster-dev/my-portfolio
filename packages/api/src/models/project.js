@@ -13,7 +13,7 @@ const ProjectSchema = new Schema(
       type: String,
       required: true,
     },
-    language: [String],
+    skills: [String],
     slug: String,
     published: {
       type: Boolean,
