@@ -42,7 +42,7 @@ require('./utils/passport');
 
 // Routes
 app.use('/auth', authRoutes);
-app.use('/projects', projectRoutes);
+app.use('/project', projectRoutes);
 
 function ignoreFavicon(req, res, next) {
   if (req.originalUrl.includes('favicon.ico')) {
