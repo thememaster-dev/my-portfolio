@@ -7,16 +7,32 @@ const { isAdmin } = require('../middlewares');
 
 // Controllers
 const {
-  getProjects,
-  getProject,
+  getPublishedProjects,
+  getUnPublishedProjects,
+  getPublishedProject,
+  getUnPublishedProject,
   createProject,
   updateProject,
   deleteProject,
 } = require('../controllers/project');
 
-router.get('/', getProjects);
+router.get('/published/page/:page', getPublishedProjects);
 
-router.get('/:slug', getProject);
+router.get(
+  '/unpublished/page/:page',
+  passport.authenticate('jwt', { session: false }),
+  isAdmin,
+  getUnPublishedProjects
+);
+
+router.get('/:slug', getPublishedProject);
+
+router.get(
+  '/:slug',
+  passport.authenticate('jwt', { session: false }),
+  isAdmin,
+  getUnPublishedProject
+);
 
 router.post(
   '/',

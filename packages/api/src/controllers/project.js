@@ -1,9 +1,67 @@
 const Project = require('../models/project');
 const { validateProjectInput } = require('../validations/project');
 
-exports.getProjects = async (req, res) => {};
+exports.getPublishedProjects = async (req, res) => {
+  const page = req.params.page || 1;
+  const limit = 15;
+  const skip = page * limit - limit;
 
-exports.getProject = async (req, res) => {};
+  const projectPromise = await Project.find({ published: true }).sort({
+    createdAt: 'desc',
+  });
+
+  const countPromise = Project.count({ published: true });
+
+  const [project, count] = await Promise.all([projectPromise, countPromise]);
+  const pages = Math.ceil(count / limit);
+
+  if (!project.length && skip) {
+    return res
+      .status(400)
+      .json({ success: false, errors: { message: "Page doesn't exist" } });
+  }
+
+  return res.status(200).json({
+    success: true,
+    project: project,
+    page,
+    pages,
+    count,
+  });
+};
+
+exports.getUnPublishedProjects = async (req, res) => {
+  const page = req.params.page || 1;
+  const limit = 15;
+  const skip = page * limit - limit;
+
+  const projectPromise = await Project.find({ published: false }).sort({
+    createdAt: 'desc',
+  });
+
+  const countPromise = Project.count({ published: false });
+
+  const [project, count] = await Promise.all([projectPromise, countPromise]);
+  const pages = Math.ceil(count / limit);
+
+  if (!project.length && skip) {
+    return res
+      .status(400)
+      .json({ success: false, errors: { message: "Page doesn't exist" } });
+  }
+
+  return res.status(200).json({
+    success: true,
+    project: project,
+    page,
+    pages,
+    count,
+  });
+};
+
+exports.getPublishedProject = async (req, res) => {};
+
+exports.getUnPublishedProject = async (req, res) => {};
 
 exports.createProject = async (req, res) => {
   const { errors, isValid } = validateProjectInput(req.body);
