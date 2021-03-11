@@ -8,6 +8,9 @@ const mongoose = require('mongoose');
 
 const app = express();
 
+// Import Routes
+const authRoutes = require('./routes/auth');
+
 // MongoDb Database connect
 mongoose
   .connect(process.env.DATABASE_URL, {
@@ -32,6 +35,9 @@ app.use(cors());
 
 // Logger
 app.use(morgan('dev'));
+
+// Routes
+app.use('/auth', authRoutes);
 
 function ignoreFavicon(req, res, next) {
   if (req.originalUrl.includes('favicon.ico')) {
