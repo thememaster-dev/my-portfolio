@@ -25,10 +25,10 @@ router.get(
   getUnPublishedProjects
 );
 
-router.get('/:slug', getPublishedProject);
+router.get('/published/:slug', getPublishedProject);
 
 router.get(
-  '/:slug',
+  '/unpublished/:slug',
   passport.authenticate('jwt', { session: false }),
   isAdmin,
   getUnPublishedProject

@@ -59,9 +59,37 @@ exports.getUnPublishedProjects = async (req, res) => {
   });
 };
 
-exports.getPublishedProject = async (req, res) => {};
+exports.getPublishedProject = async (req, res) => {
+  const project = await Project.findOne({
+    slug: req.params.slug,
+    published: true,
+  });
+  if (!project)
+    return res
+      .status(400)
+      .json({ success: false, errors: { message: 'Project not found' } });
 
-exports.getUnPublishedProject = async (req, res) => {};
+  return res.status(200).json({
+    success: true,
+    project: JSON.parse(JSON.stringify(project)),
+  });
+};
+
+exports.getUnPublishedProject = async (req, res) => {
+  const project = await Project.findOne({
+    slug: req.params.slug,
+    published: false,
+  });
+  if (!project)
+    return res
+      .status(400)
+      .json({ success: false, errors: { message: 'Project not found' } });
+
+  return res.status(200).json({
+    success: true,
+    project: JSON.parse(JSON.stringify(project)),
+  });
+};
 
 exports.createProject = async (req, res) => {
   const { errors, isValid } = validateProjectInput(req.body);
