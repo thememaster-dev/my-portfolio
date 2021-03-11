@@ -11,3 +11,7 @@ const headers = {
 export const authRegister = (body) => {
   return axios.post(`${API}/auth/register`, body);
 };
+
+export const authLogin = (body) => {
+  return axios.post(`${API}/auth/login`, body);
+};
