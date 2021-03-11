@@ -1,0 +1,16 @@
+version: '3.7'
+services:
+  mongo:
+    restart: always
+    container_name: mongo
+    image: 'bitnami/mongodb:latest'
+    environment:
+      - MONGODB_USERNAME=${DATABASE_USERNAME}
+      - MONGODB_PASSWORD=${DATABASE_PASSWORD}
+      - MONGODB_DATABASE=${DATABASE_NAME}
+    ports:
+      - 27017:27017
+    volumes:
+      - database:/data/db
+volumes:
+  database:
