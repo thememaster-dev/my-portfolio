@@ -48,3 +48,28 @@ exports.validateRegisterInput = (data) => {
     isValid: isEmpty(errors),
   };
 };
+
+exports.validateLoginInput = (data) => {
+  const errors = {};
+  const newData = { ...data };
+
+  newData.email = !isEmpty(data.email) ? data.email : '';
+  newData.password = !isEmpty(data.password) ? data.password : '';
+
+  if (!Validator.isEmail(newData.email)) {
+    errors.email = 'Email is invalid';
+  }
+
+  if (Validator.isEmpty(newData.email)) {
+    errors.email = 'Email field is required';
+  }
+
+  if (Validator.isEmpty(newData.password)) {
+    errors.password = 'Password field is required';
+  }
+
+  return {
+    errors,
+    isValid: isEmpty(errors),
+  };
+};
