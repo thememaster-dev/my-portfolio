@@ -4,6 +4,7 @@ import IconButton from '@material-ui/core/IconButton';
 import FacebookIcon from '@material-ui/icons/Facebook';
 import GitHubIcon from '@material-ui/icons/GitHub';
 import LinkedInIcon from '@material-ui/icons/LinkedIn';
+import { Link } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -24,15 +25,21 @@ const SocialLinks = () => {
 
   return (
     <div className={classes.root}>
-      <ColorButton color='primary'>
-        <FacebookIcon />
-      </ColorButton>
-      <ColorButton color='primary'>
-        <GitHubIcon />
-      </ColorButton>
-      <ColorButton color='primary'>
-        <LinkedInIcon />
-      </ColorButton>
+      <a href='#' target='_blank' rel='noopener noreferrer'>
+        <ColorButton color='primary'>
+          <FacebookIcon />
+        </ColorButton>
+      </a>
+      <a href='#' target='_blank' rel='noopener noreferrer'>
+        <ColorButton color='primary'>
+          <GitHubIcon />
+        </ColorButton>
+      </a>
+      <a href='#' target='_blank' rel='noopener noreferrer'>
+        <ColorButton color='primary'>
+          <LinkedInIcon />
+        </ColorButton>
+      </a>
     </div>
   );
 };
