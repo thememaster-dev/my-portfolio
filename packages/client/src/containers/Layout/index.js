@@ -20,10 +20,10 @@ const Layout = (props) => {
   return (
     <Container maxWidth className={classes.container}>
       <Grid container>
-        <Grid item xs={6}>
+        <Grid item xs={5}>
           <Profile />
         </Grid>
-        <Grid item xs={6}>
+        <Grid item xs={7}>
           {children}
         </Grid>
       </Grid>

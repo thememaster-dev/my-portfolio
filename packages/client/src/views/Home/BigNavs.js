@@ -10,7 +10,6 @@ const useStyle = makeStyles((theme) => ({
     alignItems: 'center',
     display: 'flex',
     height: '100%',
-    padding: theme.spacing(4),
   },
 }));
 
@@ -19,7 +18,10 @@ const BigNavs = () => {
 
   return (
     <div className={classes.bignav}>
-      <Grid spacing={4} container>
+      <Grid container>
+        <Grid item xs={6}>
+          <MyNavCard />
+        </Grid>
         <Grid item xs={6}>
           <MyNavCard />
         </Grid>
