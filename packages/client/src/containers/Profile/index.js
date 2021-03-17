@@ -15,9 +15,9 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: 'column',
   },
   large: {
-    width: theme.spacing(15),
-    height: theme.spacing(15),
-    marginBottom: theme.spacing(2),
+    width: theme.spacing(19),
+    height: theme.spacing(19),
+    marginBottom: theme.spacing(3),
   },
   nameTitle: {
     color: '#fff',
