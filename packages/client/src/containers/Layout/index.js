@@ -7,6 +7,7 @@ import Profile from '../Profile';
 
 const useStyle = makeStyles((theme) => ({
   container: {
+    padding: 0,
     // paddingTop: theme.spacing(1.5),
     // paddingBottom: theme.spacing(1.5),
   },
@@ -17,7 +18,7 @@ const Layout = (props) => {
   const classes = useStyle();
 
   return (
-    <Container maxWidth='md' className={classes.container}>
+    <Container maxWidth className={classes.container}>
       <Grid container>
         <Grid item xs={6}>
           <Profile />
