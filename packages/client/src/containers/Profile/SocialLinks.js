@@ -1,7 +1,9 @@
-import React from 'react'
-import { makeStyles } from '@material-ui/core/styles';
+import React from 'react';
+import { makeStyles, withStyles } from '@material-ui/core/styles';
 import IconButton from '@material-ui/core/IconButton';
-import AlarmIcon from '@material-ui/icons/Alarm';
+import FacebookIcon from '@material-ui/icons/Facebook';
+import GitHubIcon from '@material-ui/icons/GitHub';
+import LinkedInIcon from '@material-ui/icons/LinkedIn';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -11,17 +13,28 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+const ColorButton = withStyles((theme) => ({
+  root: {
+    color: '#fff',
+  },
+}))(IconButton);
 
 const SocialLinks = () => {
   const classes = useStyles();
 
   return (
     <div className={classes.root}>
-      <IconButton color="secondary" aria-label="add an alarm">
-        <AlarmIcon />
-      </IconButton>
+      <ColorButton color='primary'>
+        <FacebookIcon />
+      </ColorButton>
+      <ColorButton color='primary'>
+        <GitHubIcon />
+      </ColorButton>
+      <ColorButton color='primary'>
+        <LinkedInIcon />
+      </ColorButton>
     </div>
-  )
-}
+  );
+};
 
-export default SocialLinks
+export default SocialLinks;

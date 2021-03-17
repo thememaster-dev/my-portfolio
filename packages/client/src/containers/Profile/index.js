@@ -17,6 +17,7 @@ const useStyles = makeStyles((theme) => ({
   large: {
     width: theme.spacing(15),
     height: theme.spacing(15),
+    marginBottom: theme.spacing(2),
   },
   nameTitle: {
     color: '#fff',
