@@ -5,7 +5,7 @@ import HeroBanner from './HeroBanner';
 const Home = () => {
   return (
     <>
-      <HeroBanner />
+      {/* <HeroBanner /> */}
     </>
   );
 };
