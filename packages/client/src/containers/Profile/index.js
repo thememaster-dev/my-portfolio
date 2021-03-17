@@ -3,6 +3,8 @@ import Avatar from '@material-ui/core/Avatar';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 
+import SocialLinks from './SocialLinks';
+
 const useStyles = makeStyles((theme) => ({
   profileCard: {
     minHeight: '100vh',
@@ -34,6 +36,7 @@ const Profile = () => {
       <Typography className={classes.nameTitle} variant='h4' gutterBottom>
         Ariful islam
       </Typography>
+      <SocialLinks />
     </div>
   );
 };
