@@ -24,17 +24,29 @@ const SocialLinks = () => {
 
   return (
     <div className={classes.root}>
-      <a href='#' target='_blank' rel='noopener noreferrer'>
+      <a
+        href='https://www.facebook.com/ariful25278/'
+        target='__blank'
+        rel='noopener noreferrer'
+      >
         <ColorButton color='primary'>
           <FacebookIcon />
         </ColorButton>
       </a>
-      <a href='#' target='_blank' rel='noopener noreferrer'>
+      <a
+        href='https://github.com/arifulbgt4'
+        target='__blank'
+        rel='noopener noreferrer'
+      >
         <ColorButton color='primary'>
           <GitHubIcon />
         </ColorButton>
       </a>
-      <a href='#' target='_blank' rel='noopener noreferrer'>
+      <a
+        href='https://www.linkedin.com/in/ariful25278/'
+        target='__blank'
+        rel='noopener noreferrer'
+      >
         <ColorButton color='primary'>
           <LinkedInIcon />
         </ColorButton>
