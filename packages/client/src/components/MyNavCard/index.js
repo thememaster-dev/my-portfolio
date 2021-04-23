@@ -9,7 +9,7 @@ const useStyles = makeStyles((theme) => ({
   root: {
     maxWidth: '100%',
     height: 'calc(50vh - 50px)',
-    boxShadow: 'rgb(149 157 165 / 30%) 0px 0px 30px',
+    boxShadow: 'rgb(149 157 165 / 30%) 0px 2px 6px',
     border: 'none',
     borderRadius: 0,
   },
