@@ -30,6 +30,7 @@ exports.getPublishedProjects = async (req, res) => {
     page,
     pages,
     count,
+    limit,
   });
 };
 
@@ -62,6 +63,7 @@ exports.getUnPublishedProjects = async (req, res) => {
     page,
     pages,
     count,
+    limit,
   });
 };
 

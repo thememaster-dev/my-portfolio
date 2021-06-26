@@ -19,20 +19,22 @@ import Project from 'src/components/Project';
 const { TabPane } = Tabs;
 
 const ProjectList = () => {
+  const [unpublishedPage, setUnpublishedPage] = useState(1);
   const [unPublishedProject, setUnPublishedProject] = useState({});
+
   const history = useHistory();
 
   useEffect(() => {
     const fetchUnpublishedPeoject = async () => {
       try {
-        const { data } = await getUnpublishedPeoject(1);
+        const { data } = await getUnpublishedPeoject(unpublishedPage);
         setUnPublishedProject(data);
       } catch (error) {
         console.log('fetchUnpublishedPeoject error: ', error);
       }
     };
     fetchUnpublishedPeoject();
-  }, []);
+  }, [unpublishedPage]);
 
   return (
     <Card
@@ -43,38 +45,34 @@ const ProjectList = () => {
         </Button>
       }
     >
-      <Row gutter={[24, 24]} style={{ justifyContent: 'center' }}>
-        <Col span={24}>
-          <Tabs defaultActiveKey='1'>
-            <TabPane tab='Published ' key='1'>
-              Published Project
-            </TabPane>
-            <TabPane tab='Unpublished' key='2'>
-              <Row gutter={[24, 24]} style={{ justifyContent: 'center' }}>
-                {unPublishedProject?.project &&
-                  unPublishedProject?.project.map((item) => {
-                    const { _id, body, title } = item;
-                    return (
-                      <Col key={_id} span={6}>
-                        <Project image='' title={title} link={body} />
-                      </Col>
-                    );
-                  })}
-              </Row>
-            </TabPane>
-          </Tabs>
-        </Col>
-
-        <Col span={24}>
-          <Pagination
-            style={{ textAlign: 'center', marginTop: 20 }}
-            defaultCurrent={1}
-            pageSize={5}
-            showSizeChanger={false}
-            total={500}
-          />
-        </Col>
-      </Row>
+      <Tabs defaultActiveKey='1'>
+        <TabPane tab='Published ' key='1'>
+          Published Project
+        </TabPane>
+        <TabPane tab='Unpublished' key='2'>
+          <Row gutter={[24, 24]} style={{ justifyContent: 'center' }}>
+            {unPublishedProject?.project &&
+              unPublishedProject?.project.map((item) => {
+                const { _id, body, title } = item;
+                return (
+                  <Col key={_id} span={6}>
+                    <Project image='' title={title} link={body} />
+                  </Col>
+                );
+              })}
+            <Col span={24}>
+              <Pagination
+                style={{ textAlign: 'center', marginTop: 20 }}
+                defaultCurrent={1}
+                pageSize={unPublishedProject?.limit}
+                showSizeChanger={false}
+                total={unPublishedProject?.count}
+                onChange={(p) => setUnpublishedPage(p)}
+              />
+            </Col>
+          </Row>
+        </TabPane>
+      </Tabs>
     </Card>
   );
 };
