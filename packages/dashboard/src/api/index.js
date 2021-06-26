@@ -21,5 +21,5 @@ export const meCheck = () => {
 };
 
 export const createProject = (body) => {
-  return axios.post(`${API}/project`, body);
+  return axios.post(`${API}/project`, body, headers);
 }

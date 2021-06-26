@@ -11,6 +11,10 @@ import Upload from 'antd/lib/upload';
 import 'antd/lib/upload/style/css';
 import { UploadOutlined, InboxOutlined } from '@ant-design/icons';
 
+import { createProject } from 'src/api';
+
+const { TextArea } = Input;
+
 const layout = {
   labelCol: { span: 8 },
   wrapperCol: { span: 8 },
@@ -21,6 +25,11 @@ const tailLayout = {
 
 const ProjectCreate = () => {
   const [fileList, setFileList] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [errors, setErrors] = useState(null);
+
+  const [form] = Form.useForm();
+
   const normFile = (e) => {
     console.log('Upload event:', e);
     if (Array.isArray(e)) {
@@ -48,14 +57,31 @@ const ProjectCreate = () => {
     imgWindow.document.write(image.outerHTML);
   };
 
+  const onSubmit = async (event) => {
+    const data = {
+      title: event?.title,
+      body: event?.body,
+      projectUrl: event?.link,
+    };
+    try {
+      await createProject(data);
+    } catch (error) {
+      setErrors(error?.response?.data?.errors);
+      setLoading(false);
+    }
+  };
+
   return (
     <Card title='Create Project'>
-      <Form {...layout}>
+      <Form {...layout} form={form} name='createProject' onFinish={onSubmit}>
         <Form.Item name='title' label='Project Title'>
           <Input />
         </Form.Item>
         <Form.Item name='link' label='Project Link'>
           <Input />
+        </Form.Item>
+        <Form.Item name='body' label='Description'>
+          <TextArea showCount maxLength={100} />
         </Form.Item>
         <Form.Item label='Dragger'>
           <Form.Item
