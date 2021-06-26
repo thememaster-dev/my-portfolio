@@ -64,7 +64,13 @@ const ProjectCreate = () => {
       projectUrl: event?.link,
     };
     try {
+      setLoading(true);
+
       await createProject(data);
+
+      setLoading(false);
+      setErrors({});
+      form.resetFields();
     } catch (error) {
       setErrors(error?.response?.data?.errors);
       setLoading(false);
@@ -113,7 +119,7 @@ const ProjectCreate = () => {
           </Form.Item>
         </Form.Item>
         <Form.Item {...tailLayout}>
-          <Button type='primary' htmlType='submit'>
+          <Button loading={loading} type='primary' htmlType='submit'>
             Create
           </Button>
         </Form.Item>
