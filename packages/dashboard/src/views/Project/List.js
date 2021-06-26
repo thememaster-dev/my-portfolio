@@ -25,7 +25,7 @@ const ProjectList = () => {
   useEffect(() => {
     const fetchUnpublishedPeoject = async () => {
       try {
-        const { data } = await getUnpublishedPeoject();
+        const { data } = await getUnpublishedPeoject(1);
         setUnPublishedProject(data);
       } catch (error) {
         console.log('fetchUnpublishedPeoject error: ', error);

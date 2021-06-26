@@ -3,12 +3,15 @@ const { validateProjectInput } = require('../validations/project');
 
 exports.getPublishedProjects = async (req, res) => {
   const page = req.params.page || 1;
-  const limit = 15;
+  const limit = 8;
   const skip = page * limit - limit;
 
-  const projectPromise = await Project.find({ published: true }).sort({
-    createdAt: 'desc',
-  });
+  const projectPromise = await Project.find({ published: true })
+    .skip(skip)
+    .limit(limit)
+    .sort({
+      createdAt: 'desc',
+    });
 
   const countPromise = Project.count({ published: true });
 
@@ -32,12 +35,15 @@ exports.getPublishedProjects = async (req, res) => {
 
 exports.getUnPublishedProjects = async (req, res) => {
   const page = req.params.page || 1;
-  const limit = 15;
+  const limit = 8;
   const skip = page * limit - limit;
 
-  const projectPromise = await Project.find({ published: false }).sort({
-    createdAt: 'desc',
-  });
+  const projectPromise = await Project.find({ published: false })
+    .skip(skip)
+    .limit(limit)
+    .sort({
+      createdAt: 'desc',
+    });
 
   const countPromise = Project.count({ published: false });
 
