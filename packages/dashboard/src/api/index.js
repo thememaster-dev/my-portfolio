@@ -19,3 +19,7 @@ export const authLogin = (body) => {
 export const meCheck = () => {
   return axios.get(`${API}/auth/me`, headers);
 };
+
+export const createProject = (body) => {
+  return axios.post(`${API}/project`, body);
+}
