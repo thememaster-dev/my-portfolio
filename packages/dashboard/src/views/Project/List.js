@@ -9,10 +9,14 @@ import Col from 'antd/lib/col';
 import 'antd/lib/col/style/css';
 import Pagination from 'antd/lib/pagination';
 import 'antd/lib/pagination/style/css';
+import Tabs from 'antd/lib/tabs';
+import 'antd/lib/tabs/style/css';
 import { useHistory } from 'react-router-dom';
 
 import { getUnpublishedPeoject } from 'src/api';
 import Project from 'src/components/Project';
+
+const { TabPane } = Tabs;
 
 const ProjectList = () => {
   const [unPublishedProject, setUnPublishedProject] = useState({});
@@ -40,15 +44,27 @@ const ProjectList = () => {
       }
     >
       <Row gutter={[24, 24]} style={{ justifyContent: 'center' }}>
-        {unPublishedProject?.project &&
-          unPublishedProject?.project.map((item) => {
-            const { _id, body, title } = item;
-            return (
-              <Col key={_id} span={6}>
-                <Project image='' title={title} link={body} />
-              </Col>
-            );
-          })}
+        <Col span={24}>
+          <Tabs defaultActiveKey='1'>
+            <TabPane tab='Published ' key='1'>
+              Published Project
+            </TabPane>
+            <TabPane tab='Unpublished' key='2'>
+              <Row gutter={[24, 24]} style={{ justifyContent: 'center' }}>
+                {unPublishedProject?.project &&
+                  unPublishedProject?.project.map((item) => {
+                    const { _id, body, title } = item;
+                    return (
+                      <Col key={_id} span={6}>
+                        <Project image='' title={title} link={body} />
+                      </Col>
+                    );
+                  })}
+              </Row>
+            </TabPane>
+          </Tabs>
+        </Col>
+
         <Col span={24}>
           <Pagination
             style={{ textAlign: 'center', marginTop: 20 }}
