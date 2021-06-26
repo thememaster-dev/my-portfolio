@@ -22,4 +22,8 @@ export const meCheck = () => {
 
 export const createProject = (body) => {
   return axios.post(`${API}/project`, body, headers);
-}
+};
+
+export const getUnpublishedPeoject = (page = 1) => {
+  return axios.get(`${API}/project/unpublished/page/${page}`, headers);
+};
