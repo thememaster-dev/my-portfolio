@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Card from 'antd/lib/card';
 import 'antd/lib/card/style/css';
 import Button from 'antd/lib/button';
@@ -11,10 +11,24 @@ import Pagination from 'antd/lib/pagination';
 import 'antd/lib/pagination/style/css';
 import { useHistory } from 'react-router-dom';
 
+import { getUnpublishedPeoject } from 'src/api';
 import Project from 'src/components/Project';
 
 const ProjectList = () => {
+  const [unPublishedProject, setUnPublishedProject] = useState({});
   const history = useHistory();
+
+  useEffect(() => {
+    const fetchUnpublishedPeoject = async () => {
+      try {
+        const { data } = await getUnpublishedPeoject();
+        setUnPublishedProject(data);
+      } catch (error) {
+        console.log('fetchUnpublishedPeoject error: ', error);
+      }
+    };
+    fetchUnpublishedPeoject();
+  }, []);
 
   return (
     <Card
@@ -26,12 +40,15 @@ const ProjectList = () => {
       }
     >
       <Row gutter={[24, 24]} style={{ justifyContent: 'center' }}>
-        <Col span={6}>
-          <Project image='' title='Hello project' link='xdfsdv' />
-        </Col>
-        <Col span={6}>
-          <Project image='' title='Hello project' link='xdfsdv' />
-        </Col>
+        {unPublishedProject?.project &&
+          unPublishedProject?.project.map((item) => {
+            const { _id, body, title } = item;
+            return (
+              <Col key={_id} span={6}>
+                <Project image='' title={title} link={body} />
+              </Col>
+            );
+          })}
         <Col span={24}>
           <Pagination
             style={{ textAlign: 'center', marginTop: 20 }}
