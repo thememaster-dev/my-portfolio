@@ -12,6 +12,7 @@ import 'antd/lib/upload/style/css';
 import { UploadOutlined, InboxOutlined } from '@ant-design/icons';
 
 import { createProject } from 'src/api';
+import { CreateProjectForm } from 'src/forms';
 
 const { TextArea } = Input;
 
@@ -79,7 +80,8 @@ const ProjectCreate = () => {
 
   return (
     <Card title='Create Project'>
-      <Form {...layout} form={form} name='createProject' onFinish={onSubmit}>
+      <CreateProjectForm onSubmit={createProject} formName='createProject' />
+      {/* <Form {...layout} form={form} name='createProject' onFinish={onSubmit}>
         <Form.Item name='title' label='Project Title'>
           <Input />
         </Form.Item>
@@ -107,7 +109,7 @@ const ProjectCreate = () => {
                 Support for a single or bulk upload.
               </p>
             </Upload.Dragger> */}
-            <Upload
+      {/*   <Upload
               action='https://www.mocky.io/v2/5cc8019d300000980a055e76'
               listType='picture-card'
               fileList={fileList}
@@ -123,7 +125,7 @@ const ProjectCreate = () => {
             Create
           </Button>
         </Form.Item>
-      </Form>
+      </Form> */}
     </Card>
   );
 };
