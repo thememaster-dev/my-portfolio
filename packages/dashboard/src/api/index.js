@@ -24,6 +24,10 @@ export const createProject = (body) => {
   return axios.post(`${API}/project`, body, headers);
 };
 
+export const editProject = (slug, body) => {
+  return axios.put(`${API}/project/${slug}`, body, headers);
+};
+
 export const getPublishedPeoject = (page = 1) => {
   return axios.get(`${API}/project/published/page/${page}`);
 };
