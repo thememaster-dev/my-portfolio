@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { string, func } from 'prop-types';
 import Button from 'antd/lib/button';
 import 'antd/lib/button/style/css';
 import Form from 'antd/lib/form';
@@ -65,7 +66,7 @@ const CreateProjectForm = (props) => {
           // getValueFromEvent={normFile}
           noStyle
         > */}
-          {/* <Upload.Dragger name='files' action='/upload.do'>
+        {/* <Upload.Dragger name='files' action='/upload.do'>
         <p className='ant-upload-drag-icon'>
           <InboxOutlined />
         </p>
@@ -76,7 +77,7 @@ const CreateProjectForm = (props) => {
           Support for a single or bulk upload.
         </p>
       </Upload.Dragger> */}
-          {/* <Upload
+        {/* <Upload
             action='https://www.mocky.io/v2/5cc8019d300000980a055e76'
             listType='picture-card'
             fileList={fileList}
@@ -94,6 +95,15 @@ const CreateProjectForm = (props) => {
       </Form.Item>
     </Form>
   );
+};
+
+CreateProjectForm.defaultProps = {
+  formName: 'createProject',
+};
+
+CreateProjectForm.propTypes = {
+  onSubmit: func.isRequired,
+  formName: string,
 };
 
 export default CreateProjectForm;
