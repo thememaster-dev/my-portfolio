@@ -53,10 +53,11 @@ const ProjectList = () => {
           <Row gutter={[24, 24]} style={{ justifyContent: 'center' }}>
             {unPublishedProject?.project &&
               unPublishedProject?.project.map((item) => {
-                const { _id, body, title } = item;
+                const { _id, body, title, slug } = item;
+
                 return (
                   <Col key={_id} span={6}>
-                    <Project image='' title={title} link={body} />
+                    <Project image='' title={title} link={body} slug={slug} />
                   </Col>
                 );
               })}
