@@ -77,7 +77,7 @@ const App = () => {
             />
             <AdminRoute
               exact
-              path='/project/edit/:slug'
+              path='/project/edit/:slug/:type'
               isAuthenticated={isAuthenticated}
               role={user?.role}
               component={ProjectEdit}

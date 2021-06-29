@@ -23,11 +23,11 @@ function confirm() {
 }
 
 const Project = (props) => {
-  const { image, title, link, slug } = props;
+  const { image, title, link, slug, type } = props;
   const history = useHistory();
 
   const onEditProject = () => {
-    history.push(`/project/edit/${slug}`);
+    history.push(`/project/edit/${slug}/${type}`);
   };
 
   return (

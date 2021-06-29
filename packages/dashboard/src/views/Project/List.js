@@ -75,7 +75,13 @@ const ProjectList = () => {
 
                 return (
                   <Col key={_id} span={6}>
-                    <Project image='' title={title} link={body} slug={slug} />
+                    <Project
+                      image=''
+                      title={title}
+                      link={body}
+                      slug={slug}
+                      type={type}
+                    />
                   </Col>
                 );
               })}
