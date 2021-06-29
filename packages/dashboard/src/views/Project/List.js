@@ -46,7 +46,13 @@ const ProjectList = () => {
 
   return (
     <>
-      <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          marginBottom: 15,
+        }}
+      >
         <div>
           <Button
             onClick={() => handelProjectListingRoute('published')}
@@ -65,43 +71,44 @@ const ProjectList = () => {
           Create new Project
         </Button>
       </div>
+      <div style={{ padding: 30, background: '#fff' }}>
+        <Row gutter={[24, 24]} style={{ justifyContent: 'center' }}>
+          {!loading ? (
+            <>
+              {unPublishedProject?.project &&
+                unPublishedProject?.project.map((item) => {
+                  const { _id, body, title, slug } = item;
 
-      <Row gutter={[24, 24]} style={{ justifyContent: 'center' }}>
-        {!loading ? (
-          <>
-            {unPublishedProject?.project &&
-              unPublishedProject?.project.map((item) => {
-                const { _id, body, title, slug } = item;
-
-                return (
-                  <Col key={_id} span={6}>
-                    <Project
-                      image=''
-                      title={title}
-                      link={body}
-                      slug={slug}
-                      type={type}
-                    />
-                  </Col>
-                );
-              })}
-            <Col span={24}>
-              <Pagination
-                style={{ textAlign: 'center', marginTop: 20 }}
-                defaultCurrent={page}
-                pageSize={unPublishedProject?.limit}
-                showSizeChanger={false}
-                total={unPublishedProject?.count}
-                onChange={(p) => {
-                  history.push(`/project/l/${type}/${p}`);
-                }}
-              />
-            </Col>
-          </>
-        ) : (
-          'Loading'
-        )}
-      </Row>
+                  return (
+                    <Col key={_id} span={6}>
+                      <Project
+                        image=''
+                        title={title}
+                        link={body}
+                        slug={slug}
+                        type={type}
+                      />
+                    </Col>
+                  );
+                })}
+              <Col span={24}>
+                <Pagination
+                  style={{ textAlign: 'center', marginTop: 20 }}
+                  defaultCurrent={page}
+                  pageSize={unPublishedProject?.limit}
+                  showSizeChanger={false}
+                  total={unPublishedProject?.count}
+                  onChange={(p) => {
+                    history.push(`/project/l/${type}/${p}`);
+                  }}
+                />
+              </Col>
+            </>
+          ) : (
+            'Loading'
+          )}
+        </Row>
+      </div>
     </>
   );
 };

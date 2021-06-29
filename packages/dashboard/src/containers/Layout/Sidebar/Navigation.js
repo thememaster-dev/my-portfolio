@@ -13,7 +13,7 @@ const Navigation = () => {
       <Item key='/' icon={<UserOutlined />}>
         <NavLink to='/'>Profile</NavLink>
       </Item>
-      <Item key='projects' icon={<ProjectOutlined />}>
+      <Item key='project' icon={<ProjectOutlined />}>
         <NavLink to='/project/l/published'>Projects</NavLink>
       </Item>
     </Menu>
