@@ -6,24 +6,33 @@ import 'antd/lib/button/style/css';
 import ArrowLeftOutlined from '@ant-design/icons/ArrowLeftOutlined';
 import { useParams, useHistory } from 'react-router-dom';
 
-import { editProject, getUnpublishedPeoject } from 'src/api';
+import {
+  editProject,
+  getUnpublishedPeoject,
+  getPublishedPeoject,
+} from 'src/api';
 import { EditProjectForm } from 'src/forms';
 
 const EditProject = () => {
   const [initialValues, setInitialValues] = useState({});
   const history = useHistory();
-  const { slug } = useParams();
+  const { slug, type } = useParams();
   React.useEffect(() => {
     const fetchnpublishedPeoject = async () => {
       try {
-        const { data } = await getUnpublishedPeoject(slug);
-        setInitialValues(data);
+        if (type === 'published') {
+          const { data } = await getPublishedPeoject(slug);
+          setInitialValues(data);
+        } else if (type === 'unpublished') {
+          const { data } = await getUnpublishedPeoject(slug);
+          setInitialValues(data);
+        }
       } catch (error) {
         console.log(error);
       }
     };
     fetchnpublishedPeoject();
-  }, [slug]);
+  }, [slug, type]);
 
   return (
     <Card

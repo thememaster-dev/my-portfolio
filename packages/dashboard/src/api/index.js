@@ -28,6 +28,9 @@ export const editProject = (slug, body) => {
   return axios.put(`${API}/project/${slug}`, body, headers);
 };
 
+export const getPublishedPeoject = (slug) => {
+  return axios.get(`${API}/project/published/${slug}`);
+};
 export const getPublishedPeojects = (page = 1) => {
   return axios.get(`${API}/project/published/page/${page}`);
 };
