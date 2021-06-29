@@ -45,7 +45,15 @@ const EditProjectForm = (props) => {
     }
   };
   return (
-    <Form {...layout} form={form} name={formName} onFinish={handelSubmit}>
+    <Form
+      initialValues={{
+        title: 'Hello',
+      }}
+      {...layout}
+      form={form}
+      name={formName}
+      onFinish={handelSubmit}
+    >
       <Form.Item name='title' label='Project Title'>
         <Input />
       </Form.Item>

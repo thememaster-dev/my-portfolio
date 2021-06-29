@@ -12,6 +12,7 @@ const Home = lazy(() => import('../Home'));
 const SignIn = lazy(() => import('../SignIn'));
 const ProjectList = lazy(() => import('../Project/List'));
 const ProjectCreate = lazy(() => import('../Project/Create'));
+const ProjectEdit = lazy(() => import('../Project/Edit'));
 
 const App = () => {
   const [loading, setLoading] = useState(true);
@@ -73,6 +74,13 @@ const App = () => {
               isAuthenticated={isAuthenticated}
               role={user?.role}
               component={ProjectCreate}
+            />
+            <AdminRoute
+              exact
+              path='/projects/edit'
+              isAuthenticated={isAuthenticated}
+              role={user?.role}
+              component={ProjectEdit}
             />
             <Route exact path='/signin'>
               <SignIn />
