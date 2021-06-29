@@ -14,7 +14,7 @@ const Navigation = () => {
         <NavLink to='/'>Profile</NavLink>
       </Item>
       <Item key='projects' icon={<ProjectOutlined />}>
-        <NavLink to='/projects'>Projects</NavLink>
+        <NavLink to='/project/l/published'>Projects</NavLink>
       </Item>
     </Menu>
   );

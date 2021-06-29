@@ -11,46 +11,68 @@ import Pagination from 'antd/lib/pagination';
 import 'antd/lib/pagination/style/css';
 import Tabs from 'antd/lib/tabs';
 import 'antd/lib/tabs/style/css';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 
-import { getUnpublishedPeojects } from 'src/api';
+import { getUnpublishedPeojects, getPublishedPeojects } from 'src/api';
 import Project from 'src/components/Project';
 
 const { TabPane } = Tabs;
 
 const ProjectList = () => {
+  const [loading, setLoading] = useState(true);
   const [unpublishedPage, setUnpublishedPage] = useState(1);
   const [unPublishedProject, setUnPublishedProject] = useState({});
 
   const history = useHistory();
+  const { type } = useParams();
 
   useEffect(() => {
     const fetchUnpublishedPeoject = async () => {
       try {
-        const { data } = await getUnpublishedPeojects(unpublishedPage);
-        setUnPublishedProject(data);
+        setLoading(true);
+        if (type === 'published') {
+          const { data } = await getPublishedPeojects(unpublishedPage);
+          setUnPublishedProject(data);
+        } else if (type === 'unpublished') {
+          const { data } = await getUnpublishedPeojects(unpublishedPage);
+          setUnPublishedProject(data);
+        }
+        setLoading(false);
       } catch (error) {
-        console.log('fetchUnpublishedPeoject error: ', error);
+        console.log('fetch peoject listing error: ', error);
+        setLoading(false);
       }
     };
     fetchUnpublishedPeoject();
-  }, [unpublishedPage]);
+  }, [unpublishedPage, type]);
+
+  const handelProjectListingRoute = (tp) => history.push(`/project/l/${tp}`);
 
   return (
-    <Card
-      title='My Projects'
-      extra={
-        <Button type='primary' onClick={() => history.push('/project/create')}>
-          Create a new project
+    <>
+      <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+        <div>
+          <Button
+            onClick={() => handelProjectListingRoute('published')}
+            type={type === 'published' ? 'primary' : 'default'}
+          >
+            Published
+          </Button>
+          <Button
+            onClick={() => handelProjectListingRoute('unpublished')}
+            type={type === 'unpublished' ? 'primary' : 'default'}
+          >
+            Unpublished
+          </Button>
+        </div>
+        <Button onClick={() => history.push('/project/create')} type='primary'>
+          Create new Project
         </Button>
-      }
-    >
-      <Tabs defaultActiveKey='1'>
-        <TabPane tab='Published ' key='1'>
-          Published Project
-        </TabPane>
-        <TabPane tab='Unpublished' key='2'>
-          <Row gutter={[24, 24]} style={{ justifyContent: 'center' }}>
+      </div>
+
+      <Row gutter={[24, 24]} style={{ justifyContent: 'center' }}>
+        {!loading ? (
+          <>
             {unPublishedProject?.project &&
               unPublishedProject?.project.map((item) => {
                 const { _id, body, title, slug } = item;
@@ -71,10 +93,12 @@ const ProjectList = () => {
                 onChange={(p) => setUnpublishedPage(p)}
               />
             </Col>
-          </Row>
-        </TabPane>
-      </Tabs>
-    </Card>
+          </>
+        ) : (
+          'Loading'
+        )}
+      </Row>
+    </>
   );
 };
 
