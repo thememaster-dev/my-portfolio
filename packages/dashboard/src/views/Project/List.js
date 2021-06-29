@@ -13,7 +13,7 @@ import Tabs from 'antd/lib/tabs';
 import 'antd/lib/tabs/style/css';
 import { useHistory } from 'react-router-dom';
 
-import { getUnpublishedPeoject } from 'src/api';
+import { getUnpublishedPeojects } from 'src/api';
 import Project from 'src/components/Project';
 
 const { TabPane } = Tabs;
@@ -27,7 +27,7 @@ const ProjectList = () => {
   useEffect(() => {
     const fetchUnpublishedPeoject = async () => {
       try {
-        const { data } = await getUnpublishedPeoject(unpublishedPage);
+        const { data } = await getUnpublishedPeojects(unpublishedPage);
         setUnPublishedProject(data);
       } catch (error) {
         console.log('fetchUnpublishedPeoject error: ', error);
