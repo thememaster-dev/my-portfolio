@@ -9,14 +9,10 @@ import Col from 'antd/lib/col';
 import 'antd/lib/col/style/css';
 import Pagination from 'antd/lib/pagination';
 import 'antd/lib/pagination/style/css';
-import Tabs from 'antd/lib/tabs';
-import 'antd/lib/tabs/style/css';
 import { useHistory, useParams } from 'react-router-dom';
 
 import { getUnpublishedPeojects, getPublishedPeojects } from 'src/api';
 import Project from 'src/components/Project';
-
-const { TabPane } = Tabs;
 
 const ProjectList = () => {
   const [loading, setLoading] = useState(true);
