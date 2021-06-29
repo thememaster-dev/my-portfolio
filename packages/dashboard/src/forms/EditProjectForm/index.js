@@ -44,7 +44,7 @@ const EditProjectForm = (props) => {
       console.log(`Error form for ${formName}: `, error);
     }
   };
-  console.log('object', initialValues);
+
   return (
     <Form
       initialValues={initialValues?.project}

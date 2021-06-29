@@ -9,7 +9,8 @@ import Input from 'antd/lib/input';
 import 'antd/lib/input/style/css';
 import Upload from 'antd/lib/upload';
 import 'antd/lib/upload/style/css';
-import { UploadOutlined, InboxOutlined } from '@ant-design/icons';
+import ArrowLeftOutlined from '@ant-design/icons/ArrowLeftOutlined';
+import { useHistory } from 'react-router-dom';
 
 import { createProject } from 'src/api';
 import { CreateProjectForm } from 'src/forms';
@@ -28,6 +29,8 @@ const ProjectCreate = () => {
   const [fileList, setFileList] = useState(null);
   const [loading, setLoading] = useState(false);
   const [errors, setErrors] = useState(null);
+
+  const history = useHistory();
 
   const [form] = Form.useForm();
 
@@ -79,7 +82,17 @@ const ProjectCreate = () => {
   };
 
   return (
-    <Card title='Create Project'>
+    <Card
+      title={
+        <Button
+          icon={<ArrowLeftOutlined />}
+          onClick={() => history.goBack()}
+          type='text'
+        >
+          Back
+        </Button>
+      }
+    >
       <CreateProjectForm onSubmit={createProject} formName='createProject' />
       {/* <Form {...layout} form={form} name='createProject' onFinish={onSubmit}>
         <Form.Item name='title' label='Project Title'>
