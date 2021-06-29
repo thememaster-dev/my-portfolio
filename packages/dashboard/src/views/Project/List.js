@@ -40,7 +40,7 @@ const ProjectList = () => {
     <Card
       title='My Projects'
       extra={
-        <Button type='primary' onClick={() => history.push('/projects/create')}>
+        <Button type='primary' onClick={() => history.push('/project/create')}>
           Create a new project
         </Button>
       }

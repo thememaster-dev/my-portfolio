@@ -70,14 +70,14 @@ const App = () => {
             />
             <AdminRoute
               exact
-              path='/projects/create'
+              path='/project/create'
               isAuthenticated={isAuthenticated}
               role={user?.role}
               component={ProjectCreate}
             />
             <AdminRoute
               exact
-              path='/projects/edit'
+              path='/project/edit'
               isAuthenticated={isAuthenticated}
               role={user?.role}
               component={ProjectEdit}

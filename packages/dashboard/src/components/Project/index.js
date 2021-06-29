@@ -9,6 +9,7 @@ import message from 'antd/lib/message';
 import 'antd/lib/message/style/css';
 import EditOutlined from '@ant-design/icons/EditOutlined';
 import DeleteOutlined from '@ant-design/icons/DeleteOutlined';
+import { useHistory } from 'react-router-dom';
 
 const { Meta } = Card;
 
@@ -23,6 +24,12 @@ function confirm() {
 
 const Project = (props) => {
   const { image, title, link } = props;
+  const history = useHistory();
+
+  const onEditProject = () => {
+    history.push('/project/edit');
+  };
+
   return (
     <Card
       hoverable
@@ -40,7 +47,7 @@ const Project = (props) => {
             <DeleteOutlined />
           </Button>
         </Popconfirm>,
-        <Button block className='btn-simple' key='edit'>
+        <Button block className='btn-simple' key='edit' onClick={onEditProject}>
           <EditOutlined />
         </Button>,
       ]}
