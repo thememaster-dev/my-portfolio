@@ -63,7 +63,7 @@ const App = () => {
             />
             <AdminRoute
               exact
-              path='/project/l/:type'
+              path='/project/l/:type/:page?'
               isAuthenticated={isAuthenticated}
               role={user?.role}
               component={ProjectList}

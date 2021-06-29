@@ -20,17 +20,17 @@ const ProjectList = () => {
   const [unPublishedProject, setUnPublishedProject] = useState({});
 
   const history = useHistory();
-  const { type } = useParams();
+  const { type, page } = useParams();
 
   useEffect(() => {
     const fetchUnpublishedPeoject = async () => {
       try {
         setLoading(true);
         if (type === 'published') {
-          const { data } = await getPublishedPeojects(unpublishedPage);
+          const { data } = await getPublishedPeojects(page);
           setUnPublishedProject(data);
         } else if (type === 'unpublished') {
-          const { data } = await getUnpublishedPeojects(unpublishedPage);
+          const { data } = await getUnpublishedPeojects(page);
           setUnPublishedProject(data);
         }
         setLoading(false);
@@ -40,7 +40,7 @@ const ProjectList = () => {
       }
     };
     fetchUnpublishedPeoject();
-  }, [unpublishedPage, type]);
+  }, [page, type]);
 
   const handelProjectListingRoute = (tp) => history.push(`/project/l/${tp}`);
 
@@ -82,11 +82,13 @@ const ProjectList = () => {
             <Col span={24}>
               <Pagination
                 style={{ textAlign: 'center', marginTop: 20 }}
-                defaultCurrent={1}
+                defaultCurrent={page}
                 pageSize={unPublishedProject?.limit}
                 showSizeChanger={false}
                 total={unPublishedProject?.count}
-                onChange={(p) => setUnpublishedPage(p)}
+                onChange={(p) => {
+                  history.push(`/project/l/${type}/${p}`);
+                }}
               />
             </Col>
           </>
