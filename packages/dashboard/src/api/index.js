@@ -32,6 +32,10 @@ export const getPublishedPeojects = (page = 1) => {
   return axios.get(`${API}/project/published/page/${page}`);
 };
 
+export const getUnpublishedPeoject = (slug) => {
+  return axios.get(`${API}/project/unpublished/${slug}`, headers);
+};
+
 export const getUnpublishedPeojects = (page = 1) => {
   return axios.get(`${API}/project/unpublished/page/${page}`, headers);
 };

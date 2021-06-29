@@ -18,7 +18,7 @@ const tailLayout = {
 };
 
 const EditProjectForm = (props) => {
-  const { onSubmit, formName } = props;
+  const { onSubmit, formName, initialValues } = props;
   const [loading, setLoading] = useState(false);
   const [errors, setErrors] = useState(null);
   const [form] = Form.useForm();
@@ -44,11 +44,10 @@ const EditProjectForm = (props) => {
       console.log(`Error form for ${formName}: `, error);
     }
   };
+  console.log('object', initialValues);
   return (
     <Form
-      initialValues={{
-        title: 'Hello',
-      }}
+      initialValues={initialValues?.project}
       {...layout}
       form={form}
       name={formName}
