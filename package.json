@@ -9,7 +9,9 @@
     "dev:api": "lerna exec --scope=@portfolio/api -- yarn dev",
     "start:api": "lerna exec --scope=@portfolio/api -- yarn start",
     "start:dashboard": "lerna exec --scope=@portfolio/dashboard -- yarn start",
-    "start:client": "lerna exec --scope=@portfolio/client -- yarn start"
+    "start:client": "lerna exec --scope=@portfolio/client -- yarn start",
+    "start:frontend": "lerna exec --scope=@portfolio/frontend -- next start",
+    "sb:frontend": "lerna exec --stream --scope=@portfolio/frontend -- yarn storybook"
   },
   "devDependencies": {
     "husky": "^4.2.5",
