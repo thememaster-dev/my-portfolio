@@ -14,6 +14,7 @@ const validEmail = require("../validations/auth/email");
 const validateOtp = require("../validations/auth/otp");
 const validateResetPassword = require("../validations/auth/passReset");
 const validateInvitation = require("../validations/auth/invite");
+const validateEmpower = require("../validations/auth/empower");
 
 // Controllers
 const {
@@ -24,6 +25,8 @@ const {
   forgetPassword,
   matchOtp,
   resetPassword,
+  activeMail,
+  empower,
 } = require("../controllers/auth");
 
 // Auth Routes
@@ -33,6 +36,12 @@ router.post(
 
   validateMiddleware(validateRegister),
   register
+);
+router.put(
+  "/activemail",
+
+  validateMiddleware(validateRegister),
+  activeMail
 );
 
 router.post(
@@ -67,6 +76,13 @@ router.post(
   requireAuth,
   validateMiddleware(validateInvitation),
   invite
+);
+router.put(
+  "/empower",
+
+  requireAuth,
+  validateMiddleware(validateEmpower),
+  empower
 );
 
 module.exports = router;

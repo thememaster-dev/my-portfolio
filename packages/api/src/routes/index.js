@@ -2,7 +2,7 @@ const express = require("express");
 // const passportService = require('../config/passport');
 const authRouter = require("./auth");
 
-// const projectRouter = require("./project");
+const projectRouter = require("./project");
 
 const router = express.Router();
 
@@ -12,6 +12,6 @@ router.get("/", (req, res) => {
 
 router.use("/auth", authRouter);
 
-// router.use("/project", projectRouter);
+router.use("/project", projectRouter);
 
 module.exports = router;

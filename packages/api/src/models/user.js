@@ -13,7 +13,6 @@ const UserSchema = new Schema(
     },
     password: {
       type: String,
-      required: true,
     },
     activeStatus: {
       type: Boolean,
@@ -31,10 +30,10 @@ const UserSchema = new Schema(
       type: String,
       enum: ["admin", "moderator", "editor", "visitor"],
     },
-    // powerField: {
-    //   type: [String],
-    //   default: [],
-    // },
+    powerField: {
+      type: [String],
+      default: ["project", "board"],
+    },
   },
   {
     timestamps: true,

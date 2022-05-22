@@ -114,7 +114,7 @@ exports.login = async (req, res) => {
   try {
     const { email, password } = req.body;
     // Check if user exists
-    const user = await User.findOne({ email });
+    const user = await User.findOne({ email, activeStatus: true });
     if (!user) {
       return res.status(404).json({
         message: "User not found!!",
@@ -144,7 +144,7 @@ exports.forgetPassword = async function (req, res) {
     const { otp, otpExpiry } = createOtp.generateOtp();
 
     const user = await User.findOneAndUpdate(
-      { email },
+      { email, activeStatus: true },
       {
         $set: {
           forgetPassOtp: otp,
@@ -157,6 +157,20 @@ exports.forgetPassword = async function (req, res) {
       return res.status(404).json({
         message: "User does not exist! ",
       });
+    }
+
+    const isOwner = await Owner.findOne({ email });
+
+    if (isOwner) {
+      await Owner.findOneAndUpdate(
+        { email },
+        {
+          $set: {
+            forgetPassOtp: otp,
+            forgetPassOtpExpiry: otpExpiry,
+          },
+        }
+      );
     }
 
     if (user.name === null) {
@@ -190,7 +204,7 @@ exports.matchOtp = async function (req, res) {
   try {
     const { otp, email } = req.body;
 
-    const user = await User.findOne({ email });
+    const user = await User.findOne({ email, activeStatus: true });
     if (!user) {
       return res.status(404).json({
         message: "User does not exist! ",
@@ -228,7 +242,10 @@ exports.resetPassword = async function (req, res) {
   try {
     const { password } = req.body;
 
-    const user = await User.findOne({ email: req.user.email });
+    const user = await User.findOne({
+      email: req.user.email,
+      activeStatus: true,
+    });
     if (!user) {
       return res.status(404).json({
         message: "User does not exist! ",
@@ -258,6 +275,32 @@ exports.resetPassword = async function (req, res) {
       { new: true, useFindAndModify: false }
     );
 
+    const isOwner = await Owner.findOne({ email: req.user.email });
+
+    if (isOwner) {
+      if (isOwner.forgetPassOtp != req.user.forgetPassOtp) {
+        return res.status(404).json({
+          message: "Your link is expired ! ",
+        });
+      }
+      if (isOwner.forgetPassOtpExpiry <= Date.now()) {
+        return res.status(404).json({
+          message: "Your link is expired ! ",
+        });
+      }
+
+      await Owner.findOneAndUpdate(
+        { email: req.user.email },
+        {
+          $set: {
+            password: hashedPassword,
+            forgetPassOtp: null,
+            forgetPassOtpExpiry: null,
+          },
+        }
+      );
+    }
+
     const token = createToken.generateToken(updatedUser);
 
     res.status(200).json({
@@ -270,7 +313,10 @@ exports.resetPassword = async function (req, res) {
 };
 exports.invite = async function (req, res) {
   try {
-    const user = await User.findById(req.user.id);
+    const user = await User.findOne({
+      email: req.user.email,
+      activeStatus: true,
+    });
     if (!user) {
       return res.status(404).json({
         message: "User not found!!",
@@ -284,6 +330,7 @@ exports.invite = async function (req, res) {
     const { invitedEmails } = req.body;
     const memberArray = await User.aggregate([
       { $match: { email: { $in: invitedEmails } } },
+      { $match: { activeStatus: { $eq: true } } },
       {
         $project: {
           email: 1,
@@ -303,58 +350,78 @@ exports.invite = async function (req, res) {
       });
     }
     for (let i = 0; i < invitedEmails.length; i++) {
+      let user = new User({
+        email: invitedEmails[i],
+        activeStatus: false,
+      });
+
+      await user.save();
       invite({ email: invitedEmails[i] });
     }
 
     res.status(200).json({ success: true });
   } catch (err) {
+    console.log(err);
     res.status(500).json({
-      message: "token err",
+      message: "Internal server error!!!",
     });
   }
 };
-// exports.empower = async function (req, res) {
-//   try {
-//     const user = await User.findById(req.user.id);
-//     if (!user) {
-//       return res.status(404).json({
-//         message: "User not found!!",
-//       });
-//     }
-//     if (user.role !== "admin") {
-//       return res.status(403).json({
-//         message: "Only admin may change role!!",
-//       });
-//     }
-//     const { invitedEmails } = req.body;
-//     const memberArray = await User.aggregate([
-//       { $match: { email: { $in: invitedEmails } } },
-//       {
-//         $project: {
-//           email: 1,
-//         },
-//       },
-//     ]);
-//     if (memberArray.length === 1) {
-//       return res.status(403).json({
-//         message: "A mail included  is already registerd!",
-//         registerd: memberArray,
-//       });
-//     }
-//     if (memberArray.length > 1) {
-//       return res.status(403).json({
-//         message: "Some mails included  are already registerd!",
-//         registerd: memberArray,
-//       });
-//     }
-//     for (let i = 0; i < invitedEmails.length; i++) {
-//       invite({ email: invitedEmails[i] });
-//     }
+exports.empower = async function (req, res) {
+  try {
+    const user = await User.findOne({
+      email: req.user.email,
+      activeStatus: true,
+    });
+    if (!user) {
+      return res.status(404).json({
+        message: "User not found!!",
+      });
+    }
+    const { target, role } = req.body;
+    const isTargetUser = await User.findOne({
+      email: target,
+      activeStatus: true,
+    });
+    if (!isTargetUser) {
+      return res.status(404).json({
+        message: "Targeted user not found!!",
+      });
+    }
+    if (isTargetUser.role === "admin") {
+      const isOwner = await Owner.findOne({ email: req.user.email });
+      if (!isOwner) {
+        return res.status(403).json({
+          message: "Only owner may change role of an admin!!",
+        });
+      }
+    }
 
-//     res.status(200).json({ success: true });
-//   } catch (err) {
-//     res.status(500).json({
-//       message: "token err",
-//     });
-//   }
-// };
+    if (user.role !== "admin") {
+      return res.status(403).json({
+        message: "Only admin may change role!!",
+      });
+    }
+
+    await User.findOneAndUpdate(
+      { email: target, activeStatus: true },
+      {
+        $set: {
+          role,
+        },
+      },
+      { new: true, useFindAndModify: false }
+    );
+
+    const token = createToken.generateToken(user);
+
+    res.status(200).json({
+      success: true,
+      token,
+    });
+  } catch (err) {
+    res.status(500).json({
+      message: "Internal server error!!!",
+    });
+  }
+};
